@@ -63,6 +63,14 @@ func TestPulumiInlineSourceService(t *testing.T) {
 		WithExec([]string{"go", "test", "-v", "-run", reMatching}).
 		Stdout(ctx)
 	require.NoError(t, err)
+
+	reMatching = "TestNewStackInlineSourceActionsSecret$"
+	_, err = c.Container(dagger.ContainerOpts{ID: id}).
+		Pipeline("pulumi-inline-source-upster-test1").
+		WithWorkdir(mountedDir).
+		WithExec([]string{"go", "test", "-v", "-run", reMatching}).
+		Stdout(ctx)
+	require.NoError(t, err)
 }
 
 func TestPulumiInlineSource(t *testing.T) {
