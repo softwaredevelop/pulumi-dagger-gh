@@ -44,6 +44,8 @@ func TestPulumiInlineSourceService(t *testing.T) {
 
 	pat := os.Getenv("PULUMI_ACCESS_TOKEN")
 	pon := os.Getenv("PULUMI_ORG_NAME")
+	ght := os.Getenv("GITHUB_TOKEN")
+	gho := os.Getenv("GITHUB_OWNER")
 	id, err = util.PulumiInstall(c, id).
 		Pipeline("pulumi").
 		WithWorkdir(mountedDir).
@@ -51,6 +53,8 @@ func TestPulumiInlineSourceService(t *testing.T) {
 		WithEnvVariable("PULUMI_CONFIG_PASSPHRASE", "").
 		WithEnvVariable("PULUMI_ACCESS_TOKEN", pat).
 		WithEnvVariable("PULUMI_ORG_NAME", pon).
+		WithEnvVariable("GITHUB_TOKEN", ght).
+		WithEnvVariable("GITHUB_OWNER", gho).
 		WithExec([]string{"pulumi", "login"}).
 		ID(ctx)
 	require.NoError(t, err)
@@ -59,6 +63,14 @@ func TestPulumiInlineSourceService(t *testing.T) {
 	reMatching := "TestUpsertStackInlineSourceRefresh$"
 	_, err = c.Container(dagger.ContainerOpts{ID: id}).
 		Pipeline("pulumi-inline-source-upster-test1").
+		WithWorkdir(mountedDir).
+		WithExec([]string{"go", "test", "-v", "-run", reMatching}).
+		Stdout(ctx)
+	require.NoError(t, err)
+
+	reMatching = "TestNewStackInlineSourceActionsSecret$"
+	_, err = c.Container(dagger.ContainerOpts{ID: id}).
+		Pipeline("pulumi-inline-source-action-test2").
 		WithWorkdir(mountedDir).
 		WithExec([]string{"go", "test", "-v", "-run", reMatching}).
 		Stdout(ctx)
