@@ -1,0 +1,23 @@
+f, err := os.Create("trace.out")
+if err != nil {
+log.Fatal(err)
+}
+defer func() {
+if err := f.Close(); err != nil {
+log.Fatal(err)
+}
+}()
+
+if err := trace.Start(f); err != nil {
+log.Fatal(err)
+}
+defer trace.Stop()
+
+feat: Új funkció hozzáadása a kódbázishoz
+fix: Hibajavítás
+refactor: Kód átszervezése anélkül, hogy új funkció kerülne hozzáadásra vagy a meglévő funkció módosításra kerülne
+docs: Dokumentációhoz kapcsolódó változások, például a README fájl módosítása, kommentek vagy dokumentációs stringek hozzáadása vagy módosítása
+test: Teszteléshez kapcsolódó változások, például új tesztesetek hozzáadása, a meglévő tesztek módosítása
+chore: Egyéb változtatások, amelyek nem tartoznak a fenti típusok valamelyikébe, például a fájlstruktúra átszervezése vagy az eszközök frissítése
+A 'ci' a konvencionális commit üzenet típusa, amely az integrációs folyamatokkal (Continuous Integration) kapcsolatos változtatásokra utal. Ez a típus arra szolgál, hogy a változtatásokat beépítsék az integrációs folyamatokba, amelyek futtatják a teszteket és biztosítják, hogy az összes változtatás jól működik a projektben. A 'ci' típusú üzenetek általában automatikusan generálódnak az integrációs folyamat során, és általában nincsenek részletes információk az üzenetben. A 'ci' típusú üzenet általában csak azt jelzi, hogy a változtatások sikeresen integrálódtak az adott verzióba.
+cd

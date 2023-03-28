@@ -1,0 +1,5 @@
+config:
+  github:owner:
+    secure: AAABAN687Z8zMn1p3f9FVv9etZG22jRbQSHwXXPabnE=
+  github:token:
+    secure: AAABAKvccRTOoPmB33X2QcexvqLR4mSqKiGzSco9J00=

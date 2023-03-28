@@ -1,0 +1,44 @@
+package main
+
+import (
+	"context"
+	"fmt"
+	"path/filepath"
+
+	"github.com/pulumi/pulumi/sdk/v3/go/auto"
+	"github.com/pulumi/pulumi/sdk/v3/go/auto/debug"
+	"github.com/pulumi/pulumi/sdk/v3/go/auto/optpreview"
+)
+
+func main() {
+	ctx := context.Background()
+
+	stackName := "iac"
+	w, _ := auto.NewLocalWorkspace(ctx, auto.WorkDir(filepath.Join("..", stackName)))
+	// err := w.CreateStack(ctx, "iac")
+	stack, _ := auto.NewStack(ctx, stackName, w)
+	// if err != nil && auto.IsCreateStack409Error(err) {
+	// 	log.Println("stack " + stackName + " already exists")
+	// }
+	// if err != nil && !auto.IsCreateStack409Error(err) {
+	// 	panic(err)
+	// }
+
+	prev, err := stack.Preview(ctx, optpreview.DebugLogging(debug.LoggingOptions{
+		Debug: true,
+	}))
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(prev.StdOut)
+	// ss, _ := w.ListStacks(ctx)
+	// for _, s := range ss {
+	// 	fmt.Println(s.Name)
+	// }
+	// w, _ := auto.NewLocalWorkspace(ctx, auto.WorkDir(filepath.Join("..", stackName)))
+	// err := w.CreateStack(ctx, "iac")
+	// if err != nil {
+	// 	log.Println(err)
+	// }
+	// fmt.Println(ss[0].Name)
+}
