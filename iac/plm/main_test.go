@@ -63,6 +63,18 @@ func TestPulumiInlineSourceService(t *testing.T) {
 		WithExec([]string{"go", "test", "-v", "-run", reMatching}).
 		Stdout(ctx)
 	require.NoError(t, err)
+
+	ght := os.Getenv("GITHUB_TOKEN")
+	gho := os.Getenv("GITHUB_OWNER")
+	reMatching = "TestNewStackInlineSourceActionsSecret$"
+	_, err = c.Container(dagger.ContainerOpts{ID: id}).
+		Pipeline("pulumi-inline-source-action-test2").
+		WithWorkdir(mountedDir).
+		WithEnvVariable("GITHUB_TOKEN", ght).
+		WithEnvVariable("GITHUB_OWNER", gho).
+		WithExec([]string{"go", "test", "-v", "-run", reMatching}).
+		Stdout(ctx)
+	require.NoError(t, err)
 }
 
 func TestPulumiInlineSource(t *testing.T) {
