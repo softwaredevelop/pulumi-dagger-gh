@@ -231,13 +231,13 @@ func main() {
 		return nil
 	})
 
-	// prev, err = stackB.Preview(ctx, optpreview.Message("Preview stack "+stackNameB), optpreview.DebugLogging(debug.LoggingOptions{
-	// 	Debug: true,
-	// }))
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// log.Println(prev.StdOut)
+	prev, err = stackB.Preview(ctx, optpreview.Message("Preview stack "+stackNameB), optpreview.DebugLogging(debug.LoggingOptions{
+		Debug: true,
+	}))
+	if err != nil {
+		panic(err)
+	}
+	log.Println(prev.StdOut)
 
 	// up, err = stackB.Up(ctx, optup.Message("Update stack "+stackNameB), optup.DebugLogging(debug.LoggingOptions{
 	// 	Debug: true,
