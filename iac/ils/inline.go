@@ -11,7 +11,6 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/auto/debug"
 	"github.com/pulumi/pulumi/sdk/v3/go/auto/optdestroy"
 	"github.com/pulumi/pulumi/sdk/v3/go/auto/optpreview"
-	"github.com/pulumi/pulumi/sdk/v3/go/auto/optup"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/workspace"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -210,13 +209,13 @@ func main() {
 	}
 	log.Println(prev.StdOut)
 
-	up, err := stackA.Up(ctx, optup.Message("Update stack "+stackNameA), optup.DebugLogging(debug.LoggingOptions{
-		Debug: true,
-	}))
-	if err != nil {
-		panic(err)
-	}
-	log.Println(up.StdOut)
+	// up, err := stackA.Up(ctx, optup.Message("Update stack "+stackNameA), optup.DebugLogging(debug.LoggingOptions{
+	// 	Debug: true,
+	// }))
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// log.Println(up.StdOut)
 
 	stackB.Workspace().SetProgram(func(pCtx *pulumi.Context) error {
 
@@ -254,12 +253,12 @@ func main() {
 	}
 	log.Println(prev.StdOut)
 
-	up, err = stackB.Up(ctx, optup.Message("Update stack "+stackNameB), optup.DebugLogging(debug.LoggingOptions{
-		Debug: true,
-	}))
-	if err != nil {
-		panic(err)
-	}
-	log.Println(up.StdOut)
+	// up, err = stackB.Up(ctx, optup.Message("Update stack "+stackNameB), optup.DebugLogging(debug.LoggingOptions{
+	// 	Debug: true,
+	// }))
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// log.Println(up.StdOut)
 
 }
